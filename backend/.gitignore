@@ -9,3 +9,6 @@ poetry.lock
 
 # Pycache
 __pycache__/
+
+# Database
+postgres-data/
