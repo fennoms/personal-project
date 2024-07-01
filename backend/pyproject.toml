@@ -25,3 +25,10 @@ build-backend = "poetry.core.masonry.api"
 line-length = 79
 enable-unstable-feature = ["string_processing"]
 preview = true
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+max-line-length = 79
+ignore = "E203, E501, W503"
