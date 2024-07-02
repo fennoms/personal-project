@@ -1,30 +1,28 @@
-// RegisterForm.tsx
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerFormSchema } from '@/utils/registerFormSchema';
 import { Button } from '@/components/ui/button';
 import FormInput from '@/components/ui/FormInput';
+import { handleRegister } from '@/utils/handleRegister';
+
 
 const RegisterForm: React.FC = () => {
-  const methods = useForm({
-    resolver: zodResolver(registerFormSchema),
-    defaultValues: {
-      email: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-    },
-  });
+    const methods = useForm({
+        resolver: zodResolver(registerFormSchema),
+        defaultValues: {
+            email: '',
+            username: '',
+            password: '',
+            confirmPassword: '',
+        },
+    });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-    // Add submission logic here
-  };
+
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={methods.handleSubmit(handleRegister)} className="space-y-8">
         <FormInput
           name="username"
           label="Username"
