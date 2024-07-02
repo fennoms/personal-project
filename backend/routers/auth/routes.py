@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
 
 from db import get_session
-from dependencies import create_access_token
+from dependencies import create_access_token, get_current_user
 from routers.user.models import User, UserCreateRequest, UserResponse
 
 router = APIRouter(
@@ -51,3 +51,9 @@ async def login(
     token = create_access_token({"id": user.id})
 
     return UserResponse(username=user.username, id=user.id, token=token)
+
+
+@router.get("/verify")
+def get_current_user(user: UserResponse = Depends(get_current_user)) -> UserResponse:
+    """Get the current user."""
+    return user
