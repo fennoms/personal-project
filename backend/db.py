@@ -6,12 +6,15 @@ can be called on application startup to generate the database tables.
 """
 
 import os
+from dotenv import load_dotenv
 
 from sqlmodel import Session, SQLModel, create_engine
 
+
+load_dotenv()
+
 # The database URL is found in the .env file stored under POSTGRES_URL
 DATABASE_URL = os.getenv("POSTGRES_URL")
-
 engine = create_engine(DATABASE_URL, echo=True)
 
 

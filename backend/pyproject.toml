@@ -10,6 +10,8 @@ package-mode = false
 python = "^3.12"
 fastapi = "^0.111.0"
 sqlmodel = "^0.0.19"
+python-dotenv = "^1.0.1"
+psycopg2-binary = "^2.9.9"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"

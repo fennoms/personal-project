@@ -4,12 +4,14 @@ from contextlib import asynccontextmanager
 
 from db import init_db
 from fastapi import FastAPI
+from dotenv import load_dotenv
 
 
 @asynccontextmanager
-def lifespan() -> None:
+async def lifespan(app: FastAPI) -> None:
     """Create database tables on application startup."""
     print("Application startup")
+    load_dotenv()
     init_db()
     yield
     print("Application shutdown")
