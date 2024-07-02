@@ -4,7 +4,7 @@ import os
 from datetime import datetime, timedelta
 
 import jwt
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlmodel import Session
 
@@ -33,9 +33,9 @@ def verify_access_token(token: str) -> TokenData:
         id: int = payload.get("id")
 
     except jwt.ExpiredSignatureError:
-        raise ValueError("Token has expired")
+        raise HTTPException(status_code=401, detail="Token has expired")
     except jwt.InvalidTokenError:
-        raise ValueError("Invalid token")
+        raise HTTPException(status_code=401, detail="Invalid token")
 
     return TokenData(id=id)
 
@@ -50,4 +50,4 @@ def get_current_user(
     if user is None:
         raise ValueError("User not found")
 
-    return UserResponse(username=user.username, id=user.id, token=token)
+    return UserResponse(username=user.username, id=user.id)

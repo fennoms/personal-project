@@ -1,7 +1,5 @@
 """Models for users."""
 
-from typing import Optional
-
 from pydantic import EmailStr, field_validator
 from sqlmodel import Field, SQLModel
 
@@ -47,7 +45,6 @@ class UserResponse(UserBase):
     """Response body for a user."""
 
     id: int
-    token: Optional[str] = None
 
 
 class User(UserBase, table=True):
