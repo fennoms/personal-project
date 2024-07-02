@@ -1,6 +1,7 @@
 """Models for the auth router."""
 
 from typing import Optional
+
 from pydantic import BaseModel
 
 

@@ -1,10 +1,11 @@
 """Models for users."""
 
 from typing import Optional
-from sqlmodel import Field, SQLModel
-from pydantic import field_validator, EmailStr
 
-from routers.auth.utils import validate_username, validate_password
+from pydantic import EmailStr, field_validator
+from sqlmodel import Field, SQLModel
+
+from routers.auth.utils import validate_password, validate_username
 
 
 class UserBase(SQLModel):

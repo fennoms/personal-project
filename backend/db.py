@@ -6,10 +6,9 @@ can be called on application startup to generate the database tables.
 """
 
 import os
+
 from dotenv import load_dotenv
-
 from sqlmodel import Session, SQLModel, create_engine
-
 
 load_dotenv()
 

@@ -1,14 +1,16 @@
 """Module containing the dependencies for the FastAPI application."""
 
-from fastapi.security import OAuth2PasswordBearer
-from fastapi import Depends
 import os
 from datetime import datetime, timedelta
+
 import jwt
+from fastapi import Depends
+from fastapi.security import OAuth2PasswordBearer
 from sqlmodel import Session
+
 from db import get_session
 from routers.auth.models import TokenData
-from routers.user.models import UserResponse, User
+from routers.user.models import User, UserResponse
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 JWT_KEY = os.getenv("JWT_KEY")
