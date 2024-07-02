@@ -2,4 +2,8 @@
 
 from fastapi import FastAPI
 
-app = FastAPI()
+app = FastAPI(
+    docs_url="/api/docs",
+    redoc_url=None,
+    openapi_url="/api/openapi.json",
+)
