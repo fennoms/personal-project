@@ -2,9 +2,11 @@
 
 from contextlib import asynccontextmanager
 
-from db import init_db
-from fastapi import FastAPI
 from dotenv import load_dotenv
+from fastapi import APIRouter, FastAPI
+
+from db import init_db
+from routers.auth.routes import router as auth_router
 
 
 @asynccontextmanager
@@ -23,3 +25,8 @@ app = FastAPI(
     openapi_url="/api/openapi.json",
     lifespan=lifespan,
 )
+
+main_router = APIRouter(prefix="/api")
+main_router.include_router(auth_router)
+
+app.include_router(main_router)
