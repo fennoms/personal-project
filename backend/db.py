@@ -11,12 +11,12 @@ DATABASE_URL = os.getenv("POSTGRES_URL")
 engine = create_engine(DATABASE_URL, echo=True)
 
 
-def init_db():
+def init_db() -> None:
     """Generates database tables."""
     SQLModel.metadata.create_all(engine)
 
 
-def get_session():
+def get_session() -> Session:
     """Creates a database session."""
     with Session(engine) as session:
         yield session
