@@ -8,6 +8,7 @@ from sqlmodel import Session, select
 from db import get_session
 from dependencies import create_access_token, get_current_user
 from routers.auth.models import Token
+from routers.auth.utils import hash_password, verify_password
 from routers.user.models import User, UserCreateRequest, UserResponse
 
 router = APIRouter(
@@ -23,7 +24,9 @@ async def register(
     """Register a new user."""
     try:
         new_user = User(
-            username=user.username, email=user.email, password=user.password
+            username=user.username,
+            email=user.email,
+            password=hash_password(user.password),
         )
         session.add(new_user)
         session.commit()
@@ -41,15 +44,15 @@ async def login(
     user: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)
 ) -> Token:
     """Login a user."""
-    user = session.exec(select(User).filter(User.username == user.username)).first()
+    user_db = session.exec(select(User).filter(User.username == user.username)).first()
 
-    if user is None:
+    if user_db is None:
         return {"error": "User not found"}
 
-    if user.password != user.password:
+    if not verify_password(user.password, user_db.password):
         return {"error": "Invalid password"}
 
-    token = create_access_token({"id": user.id})
+    token = create_access_token({"id": user_db.id})
 
     return Token(access_token=token, type="bearer")
 
