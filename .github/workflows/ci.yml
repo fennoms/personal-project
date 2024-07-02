@@ -1,9 +1,6 @@
-name: CI/CD
+name: CI
 
-on:
-  push:
-    branches:
-      - main
+on: [pull_request, workflow_dispatch]
 
 jobs:
   lint:
@@ -35,22 +32,3 @@ jobs:
     - name: Run black check
       run: |
         black --check .
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: lint
-
-    steps:
-    - name: Deploy backend through SSH
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
-          cd personal-project
-          git pull
-          cd backend
-          echo "${{ secrets.PASSWORD }}" | sudo -S docker compose up -d --build
