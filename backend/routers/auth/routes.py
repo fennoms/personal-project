@@ -7,6 +7,7 @@ from sqlmodel import Session, select
 
 from db import get_session
 from dependencies import create_access_token, get_current_user
+from routers.auth.models import Token
 from routers.user.models import User, UserCreateRequest, UserResponse
 
 router = APIRouter(
@@ -15,10 +16,10 @@ router = APIRouter(
 )
 
 
-@router.post("/register", response_model=UserResponse)
+@router.post("/register", response_model=Token)
 async def register(
     user: UserCreateRequest, session: Session = Depends(get_session)
-) -> UserResponse:
+) -> Token:
     """Register a new user."""
     try:
         new_user = User(
@@ -32,13 +33,13 @@ async def register(
 
     token = create_access_token({"id": new_user.id})
 
-    return UserResponse(username=new_user.username, id=new_user.id, token=token)
+    return Token(access_token=token, type="bearer")
 
 
-@router.post("/login", response_model=UserResponse)
+@router.post("/login", response_model=Token)
 async def login(
     user: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)
-) -> UserResponse:
+) -> Token:
     """Login a user."""
     user = session.exec(select(User).filter(User.username == user.username)).first()
 
@@ -50,7 +51,7 @@ async def login(
 
     token = create_access_token({"id": user.id})
 
-    return UserResponse(username=user.username, id=user.id, token=token)
+    return Token(access_token=token, type="bearer")
 
 
 @router.get("/verify")

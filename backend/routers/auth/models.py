@@ -1,14 +1,12 @@
 """Models for the auth router."""
 
-from typing import Optional
-
 from pydantic import BaseModel
 
 
 class Token(BaseModel):
     """Base class for a token."""
 
-    token: Optional[str] = None
+    access_token: str
     type: str
 
 
