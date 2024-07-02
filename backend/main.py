@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI) -> None:
+async def lifespan(app: FastAPI):
     """Create database tables on application startup."""
     print("Application startup")
     load_dotenv()
