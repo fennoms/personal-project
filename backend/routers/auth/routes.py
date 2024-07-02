@@ -1,6 +1,6 @@
 """Routes for authentication."""
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
@@ -32,7 +32,7 @@ async def register(
         session.commit()
         session.refresh(new_user)
     except IntegrityError:
-        return {"error": "Username or email already exists"}
+        raise HTTPException(status_code=400, detail="User already exists")
 
     token = create_access_token({"id": new_user.id})
 
@@ -47,10 +47,10 @@ async def login(
     user_db = session.exec(select(User).filter(User.username == user.username)).first()
 
     if user_db is None:
-        return {"error": "User not found"}
+        raise HTTPException(status_code=404, detail="User not found")
 
     if not verify_password(user.password, user_db.password):
-        return {"error": "Invalid password"}
+        raise HTTPException(status_code=404, detail="Incorrect password")
 
     token = create_access_token({"id": user_db.id})
 
