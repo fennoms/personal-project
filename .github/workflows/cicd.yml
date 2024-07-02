@@ -45,3 +45,16 @@ jobs:
           git pull
           cd backend
           echo "${{ secrets.PASSWORD }}" | sudo -S docker compose up -d --build
+
+    - name: Deploy frontend through SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd personal-project
+          git pull
+          cd frontend
+          echo "${{ secrets.PASSWORD }}" | sudo -S docker compose up -d --build
