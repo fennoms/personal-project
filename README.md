@@ -22,6 +22,12 @@ The command `docker-compose build` followed by `docker-compose up` will spin up 
 Create a `.env` file inside of the backend folder. It must contain the following:
 
 ```
+POSTGRES_HOST=<host>
+POSTGRES_PORT=<port>
+POSTGRES_USER=<username>
+POSTGRES_PASSWORD=<password>
+POSTGRES_DB=<table_name>
 POSTGRES_URL=postgresql://<username>:<password>@<host>:<port>/<table_name>
+JWT_KEY=<jwt_key>
 ```
-If you use the `docker-compose` method, the `<host>` can be replaced with `db`, since Docker creates its own network where we can use the names of containers as hostnames.
+If you use the `docker-compose` method, the `<host>` can be replaced with `db`, since Docker creates its own network where we can use the names of containers as hostnames. A JWT key can be generated using `openssl rand -hex 16`.
