@@ -25,4 +25,3 @@ Create a `.env` file inside of the backend folder. It must contain the following
 POSTGRES_URL=postgresql://<username>:<password>@<host>:<port>/<table_name>
 ```
 If you use the `docker-compose` method, the `<host>` can be replaced with `db`, since Docker creates its own network where we can use the names of containers as hostnames.
-
