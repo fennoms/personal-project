@@ -23,7 +23,7 @@ def init_db() -> None:
     SQLModel.metadata.create_all(engine)
 
 
-def get_session() -> Session:
+def get_session():
     """Create a database session."""
     with Session(engine) as session:
         yield session
