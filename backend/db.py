@@ -1,5 +1,9 @@
-"""This file holds the database connection and the logic to
-create all tables in the database."""
+"""Holds the database configuration and session creation functions.
+
+The get_session() function can be used with dependency injection to
+inject API endpoints with a database session. The init_db() function
+can be called on application startup to generate the database tables.
+"""
 
 import os
 
@@ -12,11 +16,11 @@ engine = create_engine(DATABASE_URL, echo=True)
 
 
 def init_db() -> None:
-    """Generates database tables."""
+    """Generate database tables."""
     SQLModel.metadata.create_all(engine)
 
 
 def get_session() -> Session:
-    """Creates a database session."""
+    """Create a database session."""
     with Session(engine) as session:
         yield session

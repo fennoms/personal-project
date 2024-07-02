@@ -1,15 +1,14 @@
-"""This file holds the main FastAPI application."""
+"""Holds the main FastAPI application instance."""
 
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
-
 from db import init_db
+from fastapi import FastAPI
 
 
 @asynccontextmanager
 def lifespan() -> None:
-    """Perform startup and shutdown operations."""
+    """Create database tables on application startup."""
     print("Application startup")
     init_db()
     yield
