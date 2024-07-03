@@ -1,5 +1,7 @@
+"use client";
+
 import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, use, useEffect } from "react";
 import { useAuth } from "../contexts/authContext";
 
 interface ProtectedRouteProps {
@@ -10,10 +12,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const { userId } = useAuth() as { userId: string | null };
     const router = useRouter();
 
-    if (!userId) {
-        router.push("/login");
-        return null;
-    }
+    useEffect(() => {
+        if (!userId) {
+            router.push("/login");
+        }
+    }, [userId]);
 
     return <>{children}</>;
 };
