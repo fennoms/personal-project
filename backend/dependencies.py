@@ -10,7 +10,7 @@ from sqlmodel import Session
 
 from db import get_session
 from routers.auth.models import TokenData
-from routers.user.models import User, UserResponse
+from routers.user.models import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 JWT_KEY = os.getenv("JWT_KEY")
@@ -42,7 +42,7 @@ def verify_access_token(token: str) -> TokenData:
 
 def get_current_user(
     token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)
-) -> UserResponse:
+) -> User:
     """Get the current user from the access token."""
     token = verify_access_token(token)
     user = session.get(User, token.id)
@@ -50,4 +50,4 @@ def get_current_user(
     if user is None:
         raise ValueError("User not found")
 
-    return UserResponse(username=user.username, id=user.id)
+    return user
