@@ -57,11 +57,13 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider
-            value={{ userId, setUserId, username, setUsername }}
-        >
-            {children}
-        </AuthContext.Provider>
+        !loading && (
+            <AuthContext.Provider
+                value={{ userId, setUserId, username, setUsername }}
+            >
+                {children}
+            </AuthContext.Provider>
+        )
     );
 };
 
