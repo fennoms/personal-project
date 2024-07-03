@@ -1,3 +1,5 @@
+"use client";
+
 // FormInput.tsx
 import React from "react";
 import { useFormContext } from "react-hook-form";
@@ -15,7 +17,7 @@ interface FormInputProps {
     name: string;
     label: string;
     placeholder: string;
-    description: string;
+    description?: string;
     type?: string;
 }
 
@@ -40,6 +42,7 @@ const FormInput: React.FC<FormInputProps> = ({
                             type={type}
                             placeholder={placeholder}
                             {...field}
+                            className="w-full"
                         />
                     </FormControl>
                     <FormDescription>{description}</FormDescription>

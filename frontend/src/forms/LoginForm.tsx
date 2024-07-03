@@ -15,26 +15,33 @@ const LoginForm: React.FC = () => {
         },
     });
 
+    const [error, setError] = React.useState<string | null>();
+
+    const onSubmit = (data: any) => {
+        handleLogin(data, setError);
+    };
+
     return (
         <FormProvider {...methods}>
             <form
-                onSubmit={methods.handleSubmit(handleLogin)}
-                className="space-y-8"
+                onSubmit={methods.handleSubmit(onSubmit)}
+                className="space-y-4"
             >
                 <FormInput
                     name="username"
                     label="Username"
                     placeholder="Enter your username"
-                    description="This is your public display name."
                 />
                 <FormInput
                     name="password"
                     label="Password"
                     placeholder="Enter your password"
-                    description="This is your password."
                     type="password"
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="submit" className="w-full">
+                    Submit
+                </Button>
+                {error && <p className="text-red-500 text-center">{error}</p>}
             </form>
         </FormProvider>
     );
