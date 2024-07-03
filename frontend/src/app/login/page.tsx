@@ -3,8 +3,21 @@
 import { buttonVariants } from "@/components/ui/button";
 import LoginForm from "@/forms/LoginForm";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useAuth } from "../contexts/authContext";
 
 export default function LoginPage() {
+    const { userId } = useAuth() as { userId: string | null };
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (userId) {
+            router.push("/");
+        }
+    }, [userId]);
+
     return (
         <div className="flex flex-row h-screen">
             {/* Left side containing logo */}
