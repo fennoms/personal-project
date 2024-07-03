@@ -15,7 +15,7 @@ const LoginForm: React.FC = () => {
         },
     });
 
-    const [error, setError] = React.useState<string | null>();
+    const [error, setError] = React.useState<string | null>("");
 
     const onSubmit = (data: any) => {
         handleLogin(data, setError);
