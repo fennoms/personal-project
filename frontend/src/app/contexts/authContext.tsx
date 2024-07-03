@@ -60,7 +60,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen w-screen">
-                <LoadingSpinner width={100} height={100} />;
+                <LoadingSpinner width={100} height={100} />
             </div>
         );
     }
