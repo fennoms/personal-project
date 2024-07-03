@@ -7,6 +7,7 @@ from fastapi import APIRouter, FastAPI
 
 from db import init_db
 from routers.auth.routes import router as auth_router
+from routers.posts.routes import router as post_router
 
 
 @asynccontextmanager
@@ -28,5 +29,6 @@ app = FastAPI(
 
 main_router = APIRouter(prefix="/api")
 main_router.include_router(auth_router)
+main_router.include_router(post_router)
 
 app.include_router(main_router)
