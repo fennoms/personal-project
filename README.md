@@ -19,6 +19,17 @@ NOTE: This does not create a database instance that can be used.
 The command `docker-compose build` followed by `docker-compose up` will spin up two containers; the FastAPI backend on port 8000, and the PostgreSQL database on port `POSTGRES_PORT` which must be configured as an environment variable.
 
 ### Environment variables
+
+#### Frontend
+Create a `.env` file inside of the frontend folder. It must contain the following:
+
+```
+NEXT_PUBLIC_API_URL=<api_url>
+```
+This environment variable is used to rewrite all calls of `/api/<path>` to `NEXT_PUBLIC_API_URL/<path>`. If developing locally, it can be set to `http://localhost:8000/api`. All requests made to `/api/<path>` in the frontend will be rewritten to that URL.
+
+#### Backend
+
 Create a `.env` file inside of the backend folder. It must contain the following:
 
 ```
