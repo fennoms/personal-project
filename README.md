@@ -45,13 +45,15 @@ This environment variable is used to rewrite all calls of `/api/<path>` to `NEXT
 Create a `.env` file inside of the backend folder. It must contain the following:
 
 ```
-POSTGRES_HOST=<host>
-POSTGRES_PORT=<port>
+POSTGRES_HOST=<postgres_host>
+POSTGRES_PORT=<postgres_port>
 POSTGRES_USER=<username>
 POSTGRES_PASSWORD=<password>
 POSTGRES_DB=<table_name>
-POSTGRES_URL=postgresql://<username>:<password>@<host>:<port>/<table_name>
+POSTGRES_URL=postgresql://<username>:<password>@<postgres_host>:<postgres_port>/<table_name>
 JWT_KEY=<jwt_key>
+REDIS_PORT=<redis_port>
+REDIS_URL=redis://<redis_host>:<redis_port>
 ```
 
-If you use the `docker-compose` method, the `<host>` can be replaced with `db`, since Docker creates its own network where we can use the names of containers as hostnames. A JWT key can be generated using `openssl rand -hex 16`.
+If you use the `docker-compose` method, the `<postgres_host>` can be replaced with `db`, since Docker creates its own network where we can use the names of containers as hostnames. The same holds `<redis_host>`, which can be replaced by `redis`. A JWT key can be generated using `openssl rand -hex 16`.
