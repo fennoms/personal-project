@@ -12,3 +12,6 @@ __pycache__/
 
 # Database
 postgres-data/
+
+# Redis
+redis-data/
