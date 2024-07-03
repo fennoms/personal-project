@@ -1,4 +1,7 @@
-export const handleRegister = (data: any) => {
+export const handleRegister = (
+    data: any,
+    setError: React.Dispatch<React.SetStateAction<string | null>>
+) => {
     fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -20,5 +23,10 @@ export const handleRegister = (data: any) => {
         })
         .then((data) => {
             localStorage.setItem("token", data.access_token);
+            setError(null);
+            window.location.href = "/";
+        })
+        .catch((error) => {
+            setError(error.message);
         });
 };
